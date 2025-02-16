@@ -1,16 +1,11 @@
-# prime_number_finder
+# Prime Number Finder (with Flutter Isolates)
 
-A new Flutter project.
+This Flutter project efficiently finds prime numbers using **Flutter Isolates**, which enable concurrent computation without blocking the UI.
 
-## Getting Started
+## 🚀 Features
+- Finds all prime numbers up to a given maximum.
+- Uses **Flutter Isolates** for performance optimization.
+- Provides a responsive UI while processing large numbers.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
