@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:isolate';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final findPrimeNumberViewModel =
@@ -8,8 +10,17 @@ final findPrimeNumberViewModel =
 
 class FindPrimeNumberViewModel extends StateNotifier<AsyncValue<List<int>>> {
   FindPrimeNumberViewModel(super.state);
+  Future<void> searchListByCompute(int maxNumber) async {
+    state = const AsyncValue.loading();
+    try {
+      final computeResult = await compute(findPrimeNumbers, maxNumber);
+      state = AsyncValue.data(computeResult);
+    } catch (e) {
+      state = AsyncValue.error(e.toString(), StackTrace.current);
+    }
+  }
 
-  Future<void> searchList(int maxNumber) async {
+  Future<void> searchListBySpawn(int maxNumber) async {
     state = const AsyncValue.loading();
     final responsePort = ReceivePort();
 

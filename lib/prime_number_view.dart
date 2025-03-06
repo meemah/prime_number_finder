@@ -29,12 +29,6 @@ class PrimeNumberView extends HookConsumerWidget {
               ),
               TextFormField(
                 keyboardType: TextInputType.number,
-                onFieldSubmitted: (value) {
-                  int maximumNumber = int.tryParse(numberController.text) ?? 0;
-                  ref
-                      .read(findPrimeNumberViewModel.notifier)
-                      .searchList(maximumNumber);
-                },
                 onChanged: (value) =>
                     ref.read(findPrimeNumberViewModel.notifier).resetValue(),
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -55,9 +49,55 @@ class PrimeNumberView extends HookConsumerWidget {
               GestureDetector(
                 onTap: () {
                   int maximumNumber = int.tryParse(numberController.text) ?? 0;
-                  ref
-                      .read(findPrimeNumberViewModel.notifier)
-                      .searchList(maximumNumber);
+                  if (maximumNumber > 0) {
+                    showDialog(
+                        context: context,
+                        builder: (ctx) {
+                          return Dialog(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.onPrimary,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4)),
+                            child: Wrap(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                          ref
+                                              .read(findPrimeNumberViewModel
+                                                  .notifier)
+                                              .searchListBySpawn(maximumNumber);
+                                        },
+                                        child: const Text("Use Spawn Method"),
+                                      ),
+                                      const SizedBox(
+                                        height: 30,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                          ref
+                                              .read(findPrimeNumberViewModel
+                                                  .notifier)
+                                              .searchListByCompute(
+                                                  maximumNumber);
+                                        },
+                                        child: const Text("Use Compute Method"),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        });
+                  }
                 },
                 child: Container(
                   height: 52,
